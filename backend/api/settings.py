@@ -21,6 +21,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # installed apps
+    'rest_framework',
+    'rest_framework.authtoken',
+    # my apps
+    'users'
 ]
 
 MIDDLEWARE = [
@@ -57,9 +62,13 @@ WSGI_APPLICATION = 'api.wsgi.application'
 # Database
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": config('POSTGRES_DB', default="postgres"),
+        "USER": config('POSTGRES_USER', default="postgres"),
+        "PASSWORD": config('POSTGRES_PASSWORD', default="postgres"),
+        "HOST": "db",
+        "PORT": 5432,
     }
 }
 
@@ -98,3 +107,8 @@ STATIC_URL = '/static/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'medicar', 'media')
 MEDIA_URL = '/media/'
+
+
+# Replace auth user model
+
+AUTH_USER_MODEL = 'users.User'
